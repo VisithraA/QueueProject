@@ -10,7 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class HospitalQueue {
-	static List<Patient> listComplete=new ArrayList<>();
+	static List<Patient> listComplete = new ArrayList<>();
 	static Queue<Patient> patientQueue = new LinkedList<>();
 
 	public static void main(String[] args) {
@@ -22,7 +22,8 @@ public class HospitalQueue {
 
 		do {
 			System.out.println("\nEnter the input");
-			System.out.println("1.Add Patient Details \n2.print waiting patients \n3.Medical Examination completed peoples\n0.exit");
+			System.out.println(
+					"1.Add Patient Details \n2.print waiting patients \n3.Medical Examination completed peoples\n0.exit");
 			input = sc.nextInt();
 
 			switch (input) {
@@ -31,12 +32,15 @@ public class HospitalQueue {
 				String name = sc.next();
 				System.out.println("Enter the Patient age");
 				int age = sc.nextInt();
-				//sc.nextLine();
+				// sc.nextLine();
 				Patient patient = new Patient(name, age);
 				patientQueue.add(patient);
 				break;
 			case 2:
-				System.out.println("Patient waiting list:\n" + patientQueue);
+				if (patientQueue.isEmpty())
+					System.out.println("No patients are waiting...");
+				else
+					System.out.println("Patient waiting list:\n" + patientQueue);
 				break;
 			case 3:
 				medicalCompleted();
@@ -54,7 +58,7 @@ public class HospitalQueue {
 
 	private static void medicalCompleted() {
 		System.out.println("\nMedical Examination completed for:");
-		for (Patient  li: listComplete) {
+		for (Patient li : listComplete) {
 			System.out.println(li);
 		}
 	}
@@ -66,8 +70,7 @@ public class HospitalQueue {
 			if (!patientQueue.isEmpty()) {
 				Patient patient = patientQueue.poll();
 				listComplete.add(patient);
-				System.out.println("Medical Examination Completed for " + patient);
-			}
+				}
 		}, 0, 15, TimeUnit.SECONDS);
 	}
 }
@@ -82,6 +85,6 @@ class Patient {
 	}
 
 	public String toString() {
-		return "Patient{name = " + name + " : age = " + age + "}";
+		return "name = " + name + " : age = " + age ;
 	}
 }
